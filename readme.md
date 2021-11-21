@@ -1,10 +1,15 @@
 # @chiarapassaro/color-palettes-range
-![Color Palette](screen/screen141.jpg)
+![Color Palette](https://raw.githubusercontent.com/ChiaraPassaro/color-palettes-range/master/screen/screen141.jpg)
 
-Generate many color schemes from a color
+# Are you bored with classic color palettes?
+Now you can generate more than three or five colors palette:
+take a Complementary Palette or a Random Dominant Palette, and you can decide how many colors you want!
 
-V1.1.1
+In this versions: 
+From Es5 to Es6
+Bug fix convert from Hex Color
 
+V2.0.0
 
 ##Install
 ```
@@ -14,19 +19,25 @@ $ npm install @chiarapassaro/color-palettes-range
 
 ##Usage
 ```
-var ColorPalettesRange = require("@chiarapassaro/color-palettes-range/js");
+var ColorPalettesRange = require("@chiarapassaro/color-palettes-range/src/js");
 ```
 
 ## Functionality
 
 ### Create Hsl color:<br/>
 ```
-var baseColor = new ColorPalettesRange.Hsl(hue, saturation, brightness)
+var baseColor = new ColorPalettesRange.Hsl(
+    {
+        hue, 
+        saturation, 
+        brightness
+    }
+);
 ```
 
-##### Arguments: <br/>
+##### Props: <br/>
 Hue degree (1-360)<br/>
-Saturation (1-100)<br/> 
+Saturation (1-100)<br/>
 Brightness (1-100)<br/>
 
 ##### Methods:
@@ -34,10 +45,12 @@ Brightness (1-100)<br/>
 baseColor.getHue() -> number
 baseColor.getSaturation() -> number
 baseColor.getBrightness() -> number
-baseColor.setHue(number) 
+baseColor.setHue(number)
 baseColor.setSaturation(number)
 baseColor.setBrightness(number)
 baseColor.printHsl() -> string hsl(hue, saturation% , brightness%)
+baseColor.printRgb() -> string rgb(value, value , value)
+baseColor.printHex() -> string #RRGGBB
 
 ```
 
@@ -64,7 +77,7 @@ palettes.triad()
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get palettes Triadica 
+#### Get palettes Triadic
 ```
 palettes.getTriad()
 ```
@@ -76,9 +89,14 @@ Array [obj Hsl(), obj Hsl(), ...]
 
 ### Create Complementary palettes:<br/>
 ```
-palettes.complementar(numColor, stepDegree)
+palettes.complementar(
+    {
+        numColor, 
+        stepDegree
+    }
+);
 ```
-##### Arguments:<br/>
+##### Props:<br/>
 Color number - even <br/>
 Step degree between colors<br/>
 Max degree numColor*step = 140<br/>
@@ -86,7 +104,7 @@ Max degree numColor*step = 140<br/>
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get palettes complementary colors 
+#### Get palettes complementary colors
 ```
 palettes.getComplementar()
 ```
@@ -104,7 +122,7 @@ palettes.splitComplementar()
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes Split complementary colors 
+#### Get palettes Split complementary colors
 ```
 palettes.splitComplementar()
 ```
@@ -114,12 +132,18 @@ Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea Analogous palettes:<br/>
+### Create Analogous palettes:<br/>
 ```
-palettes.analogous(typeScheme, numColor, stepDegree)
+palettes.analogous(
+    {
+        typeScheme, 
+        numColor, 
+        stepDegree
+    }
+);
 ```
-##### Arguments:<br/>
-Scheme Type: 'allArch', 'cold', 'warm'<br/> 
+##### Props:<br/>
+Scheme Type: 'allArch', 'cold', 'warm'<br/>
 Colors number - even<br/>
 Step degree between colors<br/>
 Max degree numColor*step = 60<br/>
@@ -127,7 +151,7 @@ Max degree numColor*step = 60<br/>
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get analogous colors 
+#### Get analogous colors
 ```
 palettes.getAnalogous()
 ```
@@ -174,18 +198,24 @@ Array [obj Hsl(), obj Hsl(), ...]
 
 ### Create Monochrome palettes:<br/>
 ```
-palettes.mono (numColor, stepDegree, typeScheme)
+palettes.mono (
+    {
+        numColor, 
+        stepDegree, 
+        typeScheme
+    }
+)'
 ```
-##### Arguments:<br/>
+##### Props:<br/>
 Colors number - even<br/>
 Step degree between colors<br/>
 Max degree numColor*step = 100<br/>
-Scheme type = Saturation / Brightness
+Scheme type = saturation / brightness
 ##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get Monochrome colors 
+#### Get Monochrome colors
 ```
 palettes.getMono()
 ```
@@ -197,16 +227,21 @@ Array [obj Hsl(), obj Hsl(), ...]
 
 ### Create Random with Dominat Color palettes
 ```
-palettes.randomDominant(numColor, percDominant
+palettes.randomDominant(
+    {
+        numColor, 
+        percDominant
+    }
+);
 ```
-##### Arguments:<br/>
-Colors number - even<br/>
-Color Dominant Percentage<br/>
+##### Props:<br/>
+Colors number - even (1-360)<br/>
+Color Dominant Percentage (1-100)<br/>
 ##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get Random Dominant colors 
+#### Get Random Dominant colors
 ```
 palettes.getRandomDominant()
 ```
@@ -219,42 +254,54 @@ Array [obj Hsl(), obj Hsl(), ...]
 ## Conversion Utilities
 ### Convert Hsl color:<br/>
 ```
-var color = new ColorPalettesRange.HslConvert(hue, saturation, brightness)
+var color = new ColorPalettesRange.HslConvert(
+    {
+        hue, 
+        saturation, 
+        brightness
+    }
+)
 ```
 
-##### Arguments: <br/>
+##### Props: <br/>
 hue (1-360)<br/>
-saturation (1-100)<br/> 
+saturation (1-100)<br/>
 brightness (1-100)<br/>
 
 ##### Methods:
 ```
-color.getRgb() -> [Obj] new Rgb(r, g, b) 
+color.getRgb() -> [Obj] new Rgb(r, g, b)
 color.getRed() -> number
 color.getGreen() -> number
 color.getBlue() -> number
-color.getHex() -> [Obj] new Hex(#RRGGBB) 
+color.getHex() -> [Obj] new Hex(#RRGGBB)
 ```
 
 ### Convert Rgb color:<br/>
 ```
-var color = new ColorPalettesRange.RgbConvert(r, g, b)
+var color = new ColorPalettesRange.RgbConvert(
+    {
+        red, 
+        green,
+        blue
+    }
+);
 ```
 
-##### Arguments: <br/>
-r (1-255)<br/>
-g (1-255)<br/> 
-b (1-255)<br/>
+##### Props: <br/>
+red (1-255)<br/>
+green (1-255)<br/>
+blue (1-255)<br/>
 
 ##### Methods:
 ```
-color.getHsl() -> [Obj] new Hsl(hue, saturation, brightness)
+color.getHsl() -> [Obj] new Hsl({hue, saturation, brightness})
 color.getHue() -> number
 color.getSaturation() -> number
 color.getBrightness() -> number
-color.getHex() -> [Obj] new Hex(#RRGGBB) 
+color.getHex() -> [Obj] new Hex(#RRGGBB)
 ```
- 
+
 ### Convert Hex color:<br/>
 ```
 var color = new ColorPalettesRange.HexConvert(#RRGGBB)
@@ -265,24 +312,30 @@ hex (#RRGGBB)<br/>
 
 ##### Methods:
 ```
-color.getRgb() -> [Obj] new Rgb(r, g, b) 
+color.getRgb() -> [Obj] new Rgb(r, g, b)
 color.getRed() -> number
 color.getGreen() -> number
 color.getBlue() -> number
-color.getHsl() -> [Obj] new Hsl(hue, saturation, brightness)
+color.getHsl() -> [Obj] new Hsl({hue, saturation, brightness})
 color.getHue() -> number
 color.getSaturation() -> number
 color.getBrightness() -> number
 ```
- 
+
 ### Create Rgb color:<br/>
 ```
-var color = new ColorPalettesRange.Rgb(r, g, b)
+var color = new ColorPalettesRange.Rgb(
+    {
+        red, 
+        green, 
+        blue
+    }
+);
 ```
 
-##### Arguments: <br/>
+##### Props: <br/>
 Red (1-255)<br/>
-Green (1-255)<br/> 
+Green (1-255)<br/>
 Blue (1-255)<br/>
 
 ##### Methods:
@@ -312,296 +365,345 @@ color.setHex(#RRGGBB)
 ```
 
 
-# Italian Instructions
-
+#Example with ChartJs Wheels
+![Color Palette](https://raw.githubusercontent.com/ChiaraPassaro/color-palettes-range/master/screen/screenExample.png)
 # @chiarapassaro/color-palettes-range
+![Color Palette](https://raw.githubusercontent.com/ChiaraPassaro/color-palettes-range/master/screen/screen141.jpg)
 
-Package che genera diversi tipi di palette a partire da un colore di base
+# Are you bored with classic color palettes?
+Now you can generate more than three or five colors palette:
+take a Complementary Palette or a Random Dominant Palette, and you can decide how many colors you want!
 
+V2.0.0
 
-V1.1.1
-
-##Installazione
+##Install
 ```
 $ npm init
 $ npm install @chiarapassaro/color-palettes-range
 ```
 
-##Utilizzo
+##Usage
 ```
-var ColorPalettesRange = require("@chiarapassaro/color-palettes-range/js");
-```
-
-## Funzionalità
-
-### Crea colore Hsl:<br/>
-```
-var baseColor = new ColorPalettesRange.Hsl(hue, saturation, brightness)
+var ColorPalettesRange = require("@chiarapassaro/color-palettes-range/src/js");
 ```
 
-##### Argomenti: <br/>
-Tonalità in gradi (1-360)<br/>
-Saturazione (1-100)<br/> 
-Luminosità (1-100)<br/>
+## Functionality
 
-##### Metodi:
+### Create Hsl color:<br/>
+```
+var baseColor = new ColorPalettesRange.Hsl(
+    {
+        hue, 
+        saturation, 
+        brightness
+    }
+);
+```
+
+##### Props: <br/>
+Hue degree (1-360)<br/>
+Saturation (1-100)<br/>
+Brightness (1-100)<br/>
+
+##### Methods:
 ```
 baseColor.getHue() -> number
 baseColor.getSaturation() -> number
 baseColor.getBrightness() -> number
-baseColor.setHue(number) 
+baseColor.setHue(number)
 baseColor.setSaturation(number)
 baseColor.setBrightness(number)
 baseColor.printHsl() -> string hsl(hue, saturation% , brightness%)
+baseColor.printRgb() -> string rgb(value, value , value)
+baseColor.printHex() -> string #RRGGBB
 
 ```
 
-### Crea palette:<br/>
+### Create palettes:<br/>
 ```
 var palettes = new ColorPalettesRange.SetColorPalette(baseColor)
 ```
-##### Argomenti: <br/>
-Colore di base [obj Hsl]
+##### Arguments: <br/>
+Base Color  [obj Hsl]
 
-##### Metodi:
+##### Methods:
 
-### Colore di base
+### Base Color
 ```
 palettes.getBasecolor() -> obj Hsl()
 updateColorPalette(newColor)
 ```
-### Palette Triadica:<br/>
-#### Crea palettes Triadica:<br/>
+### Triadic:<br/>
+#### Create Triadic scheme:<br/>
 ```
 palettes.triad()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get palettes Triadica 
+#### Get palettes Triadic
 ```
 palettes.getTriad()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori complementari:<br/>
+### Create Complementary palettes:<br/>
 ```
-palettes.complementar(numColor, stepDegree)
+palettes.complementar(
+    {
+        numColor, 
+        stepDegree
+    }
+);
 ```
-##### Argomenti:<br/>
-Numero di colori desiderati - numero pari <br/>
-Step in gradi tra un colore e l'altro<br/>
-Gradi massimi consentiti numColor*step = 140<br/>
-##### Ritorna:
+##### Props:<br/>
+Color number - even <br/>
+Step degree between colors<br/>
+Max degree numColor*step = 140<br/>
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get palettes di colori complementari 
+#### Get palettes complementary colors
 ```
 palettes.getComplementar()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori complementari divergenti:<br/>
+### Create Split complementary palettes:<br/>
 ```
 palettes.splitComplementar()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes di colori complementari divergenti 
+#### Get palettes Split complementary colors
 ```
 palettes.splitComplementar()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori analoghi:<br/>
+### Create Analogous palettes:<br/>
 ```
-palettes.analogous(typeScheme, numColor, stepDegree)
+palettes.analogous(
+    {
+        typeScheme, 
+        numColor, 
+        stepDegree
+    }
+);
 ```
-##### Argomenti:<br/>
-Tipo di schema: 'allArch', 'cold', 'warm'<br/> 
-Numero di colori desiderati - numero pari<br/>
-Step in gradi tra un colore e l'altro<br/>
-Gradi massimi consentiti numColor*step = 60<br/>
-##### Ritorna:
+##### Props:<br/>
+Scheme Type: 'allArch', 'cold', 'warm'<br/>
+Colors number - even<br/>
+Step degree between colors<br/>
+Max degree numColor*step = 60<br/>
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
-#### Get palettes di colori analoghi 
+#### Get analogous colors
 ```
 palettes.getAnalogous()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori tetradica:<br/>
+### Create tetradic palettes:<br/>
 ```
 palettes.tetradic()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes di colori tetradica 
+#### Get Tradic Colors
 ```
 palettes.getTetradic()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori quadratica:<br/>
+### Create Square palettes:<br/>
 ```
 palettes.square()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes di colori quadratica 
+#### Get Square colors
 ```
 palettes.getSquare()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
-
-### Crea palettes di colori monocromo:<br/>
+### Create Monochrome palettes:<br/>
 ```
-palettes.mono (numColor, stepDegree, typeScheme)
+palettes.mono (
+    {
+        numColor, 
+        stepDegree, 
+        typeScheme
+    }
+)'
 ```
-##### Argomenti:<br/>
-Numero di colori desiderati - numero pari <br/>
-Step in gradi tra un colore e l'altro<br/>
-Gradi massimi consentiti numColor*step = 100<br/>
-Tipo di schema = Saturation / Brightness
-##### Ritorna:
+##### Props:<br/>
+Colors number - even<br/>
+Step degree between colors<br/>
+Max degree numColor*step = 100<br/>
+Scheme type = saturation / brightness
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes di colori monocromo 
+#### Get Monochrome colors
 ```
 palettes.getMono()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-### Crea palettes di colori Random con Dominante
+### Create Random with Dominat Color palettes
 ```
-palettes.randomDominant(numColor, percDominant
+palettes.randomDominant(
+    {
+        numColor, 
+        percDominant
+    }
+);
 ```
-##### Argomenti:<br/>
-Numero di colori desiderati - numero pari <br/>
-Percentuale del colore di base dominante<br/>
-##### Ritorna:
+##### Props:<br/>
+Colors number - even (1-360)<br/>
+Color Dominant Percentage (1-100)<br/>
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl()]
 ```
-#### Get palettes di colori Random con Dominante 
+#### Get Random Dominant colors
 ```
 palettes.getRandomDominant()
 ```
-##### Ritorna:
+##### Return:
 ```
 Array [obj Hsl(), obj Hsl(), ...]
 ```
 
 
-## Utility di conversione
-### Converte colore Hsl:<br/>
+## Conversion Utilities
+### Convert Hsl color:<br/>
 ```
-var color = new ColorPalettesRange.HslConvert(hue, saturation, brightness)
+var color = new ColorPalettesRange.HslConvert(
+    {
+        hue, 
+        saturation, 
+        brightness
+    }
+)
 ```
 
-##### Argomenti: <br/>
+##### Props: <br/>
 hue (1-360)<br/>
-saturation (1-100)<br/> 
+saturation (1-100)<br/>
 brightness (1-100)<br/>
 
-##### Metodi:
+##### Methods:
 ```
-color.getRgb() -> [Obj] new Rgb(r, g, b) 
+color.getRgb() -> [Obj] new Rgb(r, g, b)
 color.getRed() -> number
 color.getGreen() -> number
 color.getBlue() -> number
-color.getHex() -> [Obj] new Hex(#RRGGBB) 
+color.getHex() -> [Obj] new Hex(#RRGGBB)
 ```
 
-### Converte colore Rgb:<br/>
+### Convert Rgb color:<br/>
 ```
-var color = new ColorPalettesRange.RgbConvert(r, g, b)
+var color = new ColorPalettesRange.RgbConvert(
+    {
+        red, 
+        green,
+        blue
+    }
+);
 ```
 
-##### Argomenti: <br/>
-r (1-255)<br/>
-g (1-255)<br/> 
-b (1-255)<br/>
+##### Props: <br/>
+red (1-255)<br/>
+green (1-255)<br/>
+blue (1-255)<br/>
 
-##### Metodi:
+##### Methods:
 ```
-color.getHsl() -> [Obj] new Hsl(hue, saturation, brightness)
+color.getHsl() -> [Obj] new Hsl({hue, saturation, brightness})
 color.getHue() -> number
 color.getSaturation() -> number
 color.getBrightness() -> number
-color.getHex() -> [Obj] new Hex(#RRGGBB) 
+color.getHex() -> [Obj] new Hex(#RRGGBB)
 ```
- 
-### Converte colore Esadecimale:<br/>
+
+### Convert Hex color:<br/>
 ```
 var color = new ColorPalettesRange.HexConvert(#RRGGBB)
 ```
 
-##### Argomenti: <br/>
+##### Arguments: <br/>
 hex (#RRGGBB)<br/>
 
-##### Metodi:
+##### Methods:
 ```
-color.getRgb() -> [Obj] new Rgb(r, g, b) 
+color.getRgb() -> [Obj] new Rgb(r, g, b)
 color.getRed() -> number
 color.getGreen() -> number
 color.getBlue() -> number
-color.getHsl() -> [Obj] new Hsl(hue, saturation, brightness)
+color.getHsl() -> [Obj] new Hsl({hue, saturation, brightness})
 color.getHue() -> number
 color.getSaturation() -> number
 color.getBrightness() -> number
 ```
- 
-### Crea colore Rgb:<br/>
+
+### Create Rgb color:<br/>
 ```
-var color = new ColorPalettesRange.Rgb(r, g, b)
+var color = new ColorPalettesRange.Rgb(
+    {
+        red, 
+        green, 
+        blue
+    }
+);
 ```
 
-##### Argomenti: <br/>
+##### Props: <br/>
 Red (1-255)<br/>
-Green (1-255)<br/> 
+Green (1-255)<br/>
 Blue (1-255)<br/>
 
-##### Metodi:
+##### Methods:
 ```
 color.getRed() -> number
 color.getGreen() -> number
@@ -613,21 +715,20 @@ color.setGreen(number)
 
 ```
 
-### Crea colore Esadecimale:<br/>
+### Create Hex color:<br/>
 ```
 var color = new ColorPalettesRange.Hex(#RRGGBB)
 ```
 
-##### Argomenti: <br/>
+##### Arguments: <br/>
 \#RRGGBB
 
-##### Metodi:
+##### Methods:
 ```
 color.printHex() -> string #RRGGBB
 color.setHex(#RRGGBB)
 ```
 
 
-
 #Example with ChartJs Wheels
-![Color Palette](screen/screenExample.png)
+![Color Palette](https://raw.githubusercontent.com/ChiaraPassaro/color-palettes-range/master/screen/screenExample.png)
